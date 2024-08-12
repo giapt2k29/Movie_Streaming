@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LifecycleRegistry;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.moviestreaming.GetApi.ApiRespone;
@@ -27,6 +27,7 @@ import com.example.moviestreaming.model.AllCategory;
 import com.example.moviestreaming.model.BannerMovies;
 import com.example.moviestreaming.model.CategoryItem;
 import com.example.moviestreaming.model.MovieSearch;
+import com.example.moviestreaming.moviedatabase.AppDatabase;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     TabLayout indicatorTab, categoryTab;
     ViewPager bannerMovieViewPaper;
     ImageButton search;
+    TextView textView;
 
     MainRecyclerAdapter mainRecyclerAdapter;
     RecyclerView mainRecycler;
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
 
         setContentView(R.layout.activity_main);
+
         indicatorTab = findViewById(R.id.tab_indicator);
         categoryTab = findViewById(R.id.tabLayout);
         search = findViewById(R.id.btn_search);

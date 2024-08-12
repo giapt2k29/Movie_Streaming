@@ -5,6 +5,17 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Movie_InFo {
+    @SerializedName("_id")
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @SerializedName("name")
     private String name;
     @SerializedName("content")

@@ -38,12 +38,21 @@ public class SearchActivity extends AppCompatActivity {
 
     List<String> theloai = new ArrayList<>(Arrays.asList("hành động", "cổ trang", "chiến tranh", "viễn tưởng", "kinh dị", "tài liệu", "bí ẩn", "tình cảm", "tâm lý", "thể thao", "phiêu lưu", "âm nhạc", "gia đình", "học đường", "hài hước", "hình sự", "võ thuật", "khoa học", "thần thoại", "chính kịch", "kinh điển"));
     private int index = 0;
+    TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
 
         setContentView(R.layout.search_activity);
+        textView = findViewById(R.id.textViewSearch);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
         recyclerView = findViewById(R.id.search_recycler);
         editText = findViewById(R.id.search_bar);
         flexboxLayout = findViewById(R.id.theloai);

@@ -47,6 +47,8 @@ public class MovieInfoActivity extends AppCompatActivity {
     List<String> urlMovieList;
     Intent intent;
     FlexboxLayout Tapphim;
+    String id;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,14 @@ public class MovieInfoActivity extends AppCompatActivity {
         youTubePlayerView = findViewById(R.id.movietrailer);
         getLifecycle().addObserver(youTubePlayerView);
 
+        textView = findViewById(R.id.textViewMovieInfo);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(MovieInfoActivity.this, MainActivity.class);
+                startActivity(intent1);
+            }
+        });
         name = findViewById(R.id.moviename);
         year = findViewById(R.id.year);
         content = findViewById(R.id.content_movie);
@@ -79,6 +89,7 @@ public class MovieInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 intent = new Intent(MovieInfoActivity.this, MoviePlayer.class);
                 intent.putExtra("movieurl", server_dataList.get(0).getLink_embed());
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         });
@@ -90,6 +101,8 @@ public class MovieInfoActivity extends AppCompatActivity {
             public void onResponse(Call<MovieInfo> call, Response<MovieInfo> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     Movie_InFo movie_inFo = response.body().getMovie();
+
+                    id = movie_inFo.getId();
 
                     List<CategoryItem> categoryItemList = movie_inFo.getCategoryItemList();
                     List<String> ActorList = movie_inFo.getActor();
@@ -137,6 +150,7 @@ public class MovieInfoActivity extends AppCompatActivity {
 
                     episodesList = response.body().getEpisodes_movie();
 
+
                     for(Episodes episodes : episodesList) {
                         server_dataList = episodes.getServer_data();
 
@@ -161,6 +175,7 @@ public class MovieInfoActivity extends AppCompatActivity {
                             public void onClick(View v) {
                                 intent = new Intent(MovieInfoActivity.this, MoviePlayer.class);
                                 intent.putExtra("movieurl", server_dataList.get(index).getLink_embed());
+                                intent.putExtra("id", id);
                                 startActivity(intent);
                             }
                         });

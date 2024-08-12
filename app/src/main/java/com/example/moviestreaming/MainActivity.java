@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     List<BannerMovies> PhimleList = new ArrayList<>();
     List<BannerMovies> PhimboList = new ArrayList<>();
     List<BannerMovies> Hoathinh = new ArrayList<>();
-    List<CategoryItem> homeCatListItem1, homCatListItem2, homeCatListItem3, homeCatListItem4;
+    List<CategoryItem> homeCatListItem1, homCatListItem2, homeCatListItem3, homeCatListItem4, homeCatListItem5, homeCatListItem6;
     private final Integer paperCount = 5;
     private boolean firstTime = true;
 
@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
         homCatListItem2 = new ArrayList<>();
         homeCatListItem3 = new ArrayList<>();
         homeCatListItem4 = new ArrayList<>();
+        homeCatListItem5 = new ArrayList<>();
+        homeCatListItem6 = new ArrayList<>();
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
         HomeCategory2();
         HomeCategory3();
         HomeCategory4();
+        HomeCategory5();
+        HomeCategory6();
 
         setMainRecycler(allCategoryList);
 
@@ -278,7 +282,6 @@ public class MainActivity extends AppCompatActivity {
                     List<Movie> movies = response.body().getData().getItems();
                     for(Movie movie : movies) {
                         String imageUrl = "https://phimimg.com/" + movie.getThumb_url();
-                        Log.e("ImageUrl_test", imageUrl);
                         homeCatListItem1.add(new CategoryItem(1, movie.getName(), imageUrl, movie.getSlug()));
                         if(homeCatListItem1.size() == 5) {
                             break;
@@ -302,7 +305,6 @@ public class MainActivity extends AppCompatActivity {
                     List<Movie> movies = response.body().getData().getItems();
                     for(Movie movie : movies) {
                         String imageUrl = "https://phimimg.com/" + movie.getThumb_url();
-                        Log.e("ImageUrl_test", imageUrl);
                         homCatListItem2.add(new CategoryItem(1, movie.getName(), imageUrl, movie.getSlug()));
                         if(homCatListItem2.size() == 5) {
                             break;
@@ -325,7 +327,6 @@ public class MainActivity extends AppCompatActivity {
                     List<Movie> movies = response.body().getData().getItems();
                     for(Movie movie : movies) {
                         String imageUrl = "https://phimimg.com/" + movie.getThumb_url();
-                        Log.e("ImageUrl_test", imageUrl);
                         homeCatListItem3.add(new CategoryItem(1, movie.getName(), imageUrl, movie.getSlug()));
                         if(homeCatListItem3.size() == 5) {
                             break;
@@ -348,13 +349,57 @@ public class MainActivity extends AppCompatActivity {
                     List<Movie> movies = response.body().getData().getItems();
                     for(Movie movie : movies) {
                         String imageUrl = "https://phimimg.com/" + movie.getThumb_url();
-                        Log.e("ImageUrl_test", imageUrl);
                         homeCatListItem4.add(new CategoryItem(1, movie.getName(), imageUrl, movie.getSlug()));
                         if(homeCatListItem4.size() == 5) {
                             break;
                         }
                     }
                     allCategoryList.add(new AllCategory(1, "Hàn Quốc", homeCatListItem4));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiRespone> call, Throwable t) {
+                Log.e("Api Error", t.getMessage());
+            }
+        });
+    }
+
+    public void HomeCategory5() {
+        SearchApiService.searchApiService.SearchMovie("Hài hước").enqueue(new Callback<ApiRespone>() {
+            public void onResponse(Call<ApiRespone> call, Response<ApiRespone> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                    List<Movie> movies = response.body().getData().getItems();
+                    for(Movie movie : movies) {
+                        String imageUrl = "https://phimimg.com/" + movie.getThumb_url();
+                        homeCatListItem5.add(new CategoryItem(1, movie.getName(), imageUrl, movie.getSlug()));
+                        if(homeCatListItem5.size() == 5) {
+                            break;
+                        }
+                    }
+                    allCategoryList.add(new AllCategory(1, "Hài hước", homeCatListItem5));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiRespone> call, Throwable t) {
+                Log.e("Api Error", t.getMessage());
+            }
+        });
+    }
+    public void HomeCategory6() {
+        SearchApiService.searchApiService.SearchMovie("Khoa học").enqueue(new Callback<ApiRespone>() {
+            public void onResponse(Call<ApiRespone> call, Response<ApiRespone> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                    List<Movie> movies = response.body().getData().getItems();
+                    for(Movie movie : movies) {
+                        String imageUrl = "https://phimimg.com/" + movie.getThumb_url();
+                        homeCatListItem6.add(new CategoryItem(1, movie.getName(), imageUrl, movie.getSlug()));
+                        if(homeCatListItem6.size() == 5) {
+                            break;
+                        }
+                    }
+                    allCategoryList.add(new AllCategory(1, "Khoa học", homeCatListItem6));
                 }
             }
 
